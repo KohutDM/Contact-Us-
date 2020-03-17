@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Email templates.
+ *
+ * @author    Dmytro Kohut <dmkoh@smile.fr>
+ * @copyright 2020 Smile
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="email_section_sendmail_email_template"
+              label="Smile Contact Us"
+              file="smile_contactus_email.html" type="html"
+              module="Smile_Contact"
+              area="frontend"/>
+</config>

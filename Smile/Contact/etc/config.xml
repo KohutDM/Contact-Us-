@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Default configuration.
+ *
+ * @author    Dmytro Kohut <dmkoh@smile.fr>
+ * @copyright 2020 Smile
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <email_section>
+            <sendmail>
+                <enabled>1</enabled>
+                <sender>general</sender>
+                <email_template>email_section_sendmail_email_template</email_template>
+            </sendmail>
+        </email_section>
+    </default>
+</config>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Acl configuration.
+ *
+ * @author    Dmytro Kohut <dmkoh@smile.fr>
+ * @copyright 2020 Smile
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Smile_Contact::contact_core" title="Contact Core">
+                    <resource id="Smile_Contact::appeal" title="Contact Appeal" translate="title" sortOrder="10">
+                        <resource id="Smile_Contact::appeal_save" title="Save Appeal" translate="title" sortOrder="10" />
+                        <resource id="Smile_Contact::appeal_delete" title="Delete Appeal" translate="title" sortOrder="20" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Smile_Contact::config" title="Smile configuration" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

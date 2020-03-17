@@ -1,0 +1,23 @@
+<!--
+/**
+ * Smile Contact email template.
+ *
+ * @author    Dmytro Kohut <dmkoh@smile.fr>
+ * @copyright 2020 Smile
+ */
+-->
+<!--@subject {{trans "Smile Email template from %store_name" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var message_1":"Custom Message 1",
+"var message_2":"Custom Message 2"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-info">
+        <td>
+            <h1>{{var message}}</h1>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

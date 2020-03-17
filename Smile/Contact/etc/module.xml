@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile Contact module.
+ *
+ * @author    Dmytro Kohut <dmkoh@smile.fr>
+ * @copyright 2020 Smile
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Smile_Contact" setup_version="0.1.0">
+        <sequence>
+            <module name="Magento_Contact"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile Contact frontend dependency injection.
+ *
+ * @author    Dmytro Kohut <dmkoh@smile.fr>
+ * @copyright 2020 Smile
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Contact\Controller\Index\Post">
+        <plugin name="smile_contact_appeal" type="Smile\Contact\Plugin\SetContactUsInfoToDb" sortOrder="1" />
+    </type>
+</config>

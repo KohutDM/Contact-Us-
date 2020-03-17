@@ -1,0 +1,31 @@
+{
+  "name": "smile/module-contact",
+  "description": "Smile Contact Extension for Magento 2 which save customers appeals to DB and and lets you administer them from backoffice",
+  "type": "magento2-module",
+  "version": "0.1.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Smile",
+      "email": "support@smiletest.com",
+      "homepage": "https://www.smiletest.com",
+      "role": "Technical Support"
+    }
+  ],
+  "minimum-stability": "dev",
+  "keywords": [
+    "magento 2",
+    "magento 2 contact us",
+    "magento contact us",
+    "smile",
+    "contact us"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Smile\\Contact\\": ""
+    }
+  }
+}
