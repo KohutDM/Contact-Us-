@@ -64,12 +64,8 @@ class SetContactUsInfoToDb
     {
         $data = $subject->getRequest()->getParams();
         if ($data) {
-            $data['id'] = null;
-            $data['answer'] = false;
-
             try {
                 $model = $this->appealFactory->create();
-                $data['status'] = $model::STATUS_NEW;
                 $model->setData($data);
                 $this->appealRepository->save($model);
             } catch (\Exception $e) {
