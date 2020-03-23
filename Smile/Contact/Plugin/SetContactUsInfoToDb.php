@@ -11,7 +11,9 @@ declare(strict_types=1);
 
 namespace Smile\Contact\Plugin;
 
-use Smile\Contact\Controller\Adminhtml\Appeal\Save;
+use Magento\Framework\Message\Manager;
+use Smile\Contact\Api\AppealRepositoryInterface;
+use Smile\Contact\Model\AppealFactory;
 
 /**
  * Class SetContactUsInfoToDb
@@ -21,27 +23,59 @@ use Smile\Contact\Controller\Adminhtml\Appeal\Save;
 class SetContactUsInfoToDb
 {
     /**
-     * Save controller.
+     * Message manager.
      *
-     * @var Save
+     * @var Manager
      */
-    protected $saveController;
+    protected $messageManager;
+
+    /**
+     * Appeal repository interface.
+     *
+     * @var AppealRepositoryInterface
+     */
+    protected $appealRepository;
+
+    /**
+     * Appeal factory.
+     *
+     * @var AppealFactory
+     */
+    protected $appealFactory;
 
     /**
      * SetContactUsInfoToDb constructor.
      *
-     * @param Save $saveController
+     * @param  Manager $messageManager
+     * @param  AppealFactory $appealFactory
+     * @param  AppealRepositoryInterface $appealRepository
      */
     public function __construct(
-        Save $saveController
+        Manager $messageManager,
+        AppealFactory $appealFactory,
+        AppealRepositoryInterface $appealRepository
     ) {
-        $this->saveController = $saveController;
+        $this->messageManager = $messageManager;
+        $this->appealFactory = $appealFactory;
+        $this->appealRepository = $appealRepository;
     }
 
     public function afterExecute(\Magento\Contact\Controller\Index\Post $subject, $result)
     {
-        $this->saveController->execute();
+        $data = $subject->getRequest()->getParams();
+        if ($data) {
+            $data['id'] = null;
+            $data['answer'] = false;
 
+            try {
+                $model = $this->appealFactory->create();
+                $data['status'] = $model::STATUS_NEW;
+                $model->setData($data);
+                $this->appealRepository->save($model);
+            } catch (\Exception $e) {
+                $this->messageManager->addExceptionMessage($e, __('Something went wrong while save your appeal.'));
+            }
+        }
         return $result;
     }
 }

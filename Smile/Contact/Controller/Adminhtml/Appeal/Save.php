@@ -93,27 +93,18 @@ class Save extends Action
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
-        $backofficeFlag = false;
         $data = $this->getRequest()->getPostValue();
         if ($data) {
             $id = $this->getRequest()->getParam('id');
 
             try {
-                if (!$id) {
-                    $data['id'] = null;
-                    $data['answer'] = false;
-                    $model = $this->appealFactory->create();
-                } else {
-                    $model = $this->appealRepository->getById((int)$id);
-                }
-
+                $model = $this->appealRepository->getById((int)$id);
                 $data['status'] = $model::STATUS_NEW;
                 if ($data['answer']) {
                     try {
                         $this->contactHelper->sendMail($data['email'], $data['answer']);
                         $this->messageManager->addSuccessMessage(__('You have send email to customer.'));
                         $data['status'] = $model::STATUS_ANSWERED;
-                        $backofficeFlag = true;
                     } catch (\Exception $e) {
                         $this->messageManager->addExceptionMessage($e, __('Something went wrong while sending email.'));
                     }
@@ -122,9 +113,7 @@ class Save extends Action
                 $model->setData($data);
 
                 $this->appealRepository->save($model);
-                if ($backofficeFlag) {
-                    $this->messageManager->addSuccessMessage(__('You have saved the appeal.'));
-                }
+                $this->messageManager->addSuccessMessage(__('You have saved the appeal.'));
 
                 $this->dataPersistor->clear('smile_contact_appeal');
 
