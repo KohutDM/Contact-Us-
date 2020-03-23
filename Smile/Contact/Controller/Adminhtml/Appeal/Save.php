@@ -99,21 +99,25 @@ class Save extends Action
 
             try {
                 $model = $this->appealRepository->getById((int)$id);
+
                 $data['status'] = $model::STATUS_NEW;
                 if ($data['answer']) {
-                    try {
-                        $this->contactHelper->sendMail($data['email'], $data['answer']);
-                        $this->messageManager->addSuccessMessage(__('You have send email to customer.'));
-                        $data['status'] = $model::STATUS_ANSWERED;
-                    } catch (\Exception $e) {
-                        $this->messageManager->addExceptionMessage($e, __('Something went wrong while sending email.'));
-                    }
+                    $data['status'] = $model::STATUS_ANSWERED;
                 }
 
                 $model->setData($data);
 
                 $this->appealRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You have saved the appeal.'));
+
+                if (!$data['status']) {
+                    try {
+                        $this->contactHelper->sendMail($data['email'], $data['answer']);
+                        $this->messageManager->addSuccessMessage(__('You have send email to customer.'));
+                    } catch (\Exception $e) {
+                        $this->messageManager->addExceptionMessage($e, __('Something went wrong while sending email.'));
+                    }
+                }
 
                 $this->dataPersistor->clear('smile_contact_appeal');
 
